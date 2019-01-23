@@ -5,7 +5,7 @@ class BarcodesController < ApplicationController
 
   def import
     if request.post? && @form.submit
-      redirect_to :root, notice: "#{pluralize @form.imported_count, 'barcode'} generated"
+      redirect_to :root, notice: "#{pluralize @form.imported_count, 'barcode'} imported!"
     end
   end
 

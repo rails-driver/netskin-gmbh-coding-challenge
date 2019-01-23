@@ -34,7 +34,7 @@ class BarcodeImport
 
     return barcode_8 if EAN8.valid? barcode_8
 
-    EAN8.complete barcode.rjust(7, '')
+    EAN8.complete barcode.rjust(7, '0')
   end
 
   def reader
