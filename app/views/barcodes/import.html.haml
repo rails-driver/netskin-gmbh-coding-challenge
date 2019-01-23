@@ -1,0 +1,10 @@
+%h1
+  Upload barcodes
+
+= simple_form_for @form, url: %i(import barcodes), html: {class: 'form-horizontal'} do |f|
+  = f.input :file, as: :file
+  = f.submit 'Upload barcodes', class: 'btn btn-primary submit'
+
+- if @form.import_errors
+  %p.text-danger
+    = "Invalid barcodes found: #{@form.import_errors.keys.join(', ')}"
