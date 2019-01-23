@@ -5,7 +5,7 @@ class BarcodeImport
 
   def errors
     @errors ||= reader.map do |data|
-      barcode = Barcode.new data
+      barcode = Barcode.new preprocess_data(data)
 
       if barcode.valid?
         nil
@@ -19,8 +19,22 @@ class BarcodeImport
     return false if errors.present?
 
     reader.each do |data|
-      Barcode.create data.merge source: :excel
+      Barcode.create preprocess_data(data)
     end
+  end
+
+  def preprocess_data(data)
+    data.merge barcode: format_barcode(data[:barcode]), source: :excel
+  end
+
+  def format_barcode(barcode)
+    return barcode if barcode.blank? || barcode.length >= 8
+
+    barcode_8 = barcode.rjust(8, '')
+
+    return barcode_8 if EAN8.valid? barcode_8
+
+    EAN8.complete barcode.rjust(7, '')
   end
 
   def reader
