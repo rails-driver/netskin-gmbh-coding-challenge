@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   resources :barcodes do
     collection do
-      get :import
+      match :import, via: %i(get post)
+      post :generate
     end
   end
 
