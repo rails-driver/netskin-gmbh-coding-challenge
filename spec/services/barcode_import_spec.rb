@@ -19,7 +19,7 @@ describe BarcodeImport do
 
         importer.import
 
-        assert_equal Barcode.count, 2
+        assert_equal Barcode.count, 3
         assert_equal Barcode.last.source, 'excel'
       end
     end

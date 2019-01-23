@@ -7,11 +7,9 @@ class BarcodeImport
     @errors ||= reader.map do |data|
       barcode = Barcode.new preprocess_data(data)
 
-      if barcode.valid?
-        nil
-      else
-        [data[:barcode], barcode.errors.to_h]
-      end
+      next if barcode.valid?
+
+      [data[:barcode], barcode.errors.to_h]
     end.compact.to_h
   end
 
@@ -30,7 +28,7 @@ class BarcodeImport
   def format_barcode(barcode)
     return barcode if barcode.blank? || barcode.length >= 8
 
-    barcode_8 = barcode.rjust(8, '')
+    barcode_8 = barcode.rjust(8, '0')
 
     return barcode_8 if EAN8.valid? barcode_8
 
