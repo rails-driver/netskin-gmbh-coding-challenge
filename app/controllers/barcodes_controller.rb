@@ -9,9 +9,19 @@ class BarcodesController < ApplicationController
     end
   end
 
+  def generate
+    generated_count = barcode_generator.generate
+
+    redirect_to :root, notice: "#{pluralize generated_count, 'barcode'} generated!"
+  end
+
   protected
 
   def build_new_form
     @form = Barcodes::ImportForm.new params[:form]
+  end
+
+  def barcode_generator
+    @barcode_generator ||= BarcodeGeneratorService.new
   end
 end
