@@ -12,6 +12,7 @@ Then, for developing:
 * docker-compose up
 * docker-compose exec web rails s -b 0.0.0.0
 * docker-compose exec web rails c
+* docker-compose exec web rspec spec/
 
 The website can be opened at http://localhost:3000. The docker-compose.yml is mounting your host folder in the container. So changes you make on the app will automatically be reflected in the container.
 
